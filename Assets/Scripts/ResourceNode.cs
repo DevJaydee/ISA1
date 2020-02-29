@@ -4,8 +4,18 @@ using UnityEngine;
 
 public class ResourceNode : MonoBehaviour
 {
-	public void Interact(Agent agent)
+	[SerializeField] private int resourceAmount;
+
+	public void Interact(Agent agent, int gatherAmount)
 	{
-		Debug.Log(agent.name + " Interacted with " + gameObject.name);
+		Debug.Log(agent.name + " Is interacting with: " + gameObject.name);
+
+		resourceAmount -= gatherAmount;
+		agent.ResourceInventory += gatherAmount;
+	}
+
+	public bool HasResources()
+	{
+		return resourceAmount > 0;
 	}
 }
