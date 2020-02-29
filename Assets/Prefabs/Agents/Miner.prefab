@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6568694084569750505}
   - component: {fileID: 3990053657031580436}
   m_Layer: 0
-  m_Name: Agent
+  m_Name: Miner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
