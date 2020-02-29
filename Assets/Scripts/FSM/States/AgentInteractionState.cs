@@ -32,7 +32,9 @@ public class AgentInteractionState : State
 
 		if(interactionInterval <= 0)
 		{
-			agent.Target.GetComponent<ResourceNode>().Interact(agent);
+			if(agent.Target.GetComponent<ResourceNode>().HasResources())
+				agent.Target.GetComponent<ResourceNode>().Interact(agent, agent.GatherAmounnt);
+
 			interactionInterval = agent.InteractionInterval;
 		}
 	}
