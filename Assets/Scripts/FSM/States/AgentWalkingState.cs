@@ -17,6 +17,7 @@ public class AgentWalkingState : State
 
 		Debug.Log("Starting to walk!");
 		agentDestinationSetInterval = agent.AgentDestinationSetInterval;
+		//Debug.Log(agent.Target.transform.position - agent.Target.GetComponent<BoxCollider>().bounds.extents);
 	}
 
 	public override void Exit()
@@ -38,6 +39,7 @@ public class AgentWalkingState : State
 
 		if(Vector3.Distance(agent.transform.position, agent.Target.position) <= agent.InteractionRadius)
 		{
+			agent.NavMeshAgent.isStopped = true;
 			stateMachine.ChangeState(agent.InteractionState);
 		}
 	}
