@@ -25,6 +25,9 @@ public class Agent : MonoBehaviour
 	[SerializeField] private float agentDestinationSetInterval = default; // How often the destination of the NavMeshAgent will be set.
 	[SerializeField] private float interactionInterval = 1f;    // How often the agent interacts with an interactable.
 	[SerializeField] private LayerMask interactionMask = default;   // A layermask for all the objects the Agent can interact with.
+	[Space]
+	[SerializeField] private int resourceInventory = 0;   // The inventory of the agent that stores all the resources.
+	[SerializeField] private int gatherAmount = 1;  // How much the Agent will remove from the resourceNode, and add to it's own inv./
 	#endregion
 
 	#region Getters And Setters
@@ -44,6 +47,9 @@ public class Agent : MonoBehaviour
 	public float AgentDestinationSetInterval { get => agentDestinationSetInterval; set => agentDestinationSetInterval = value; }
 	public float InteractionInterval { get => interactionInterval; set => interactionInterval = value; }
 	public LayerMask InteractionMask { get => interactionMask; set => interactionMask = value; }
+
+	public int ResourceInventory { get => resourceInventory; set => resourceInventory = value; }
+	public int GatherAmounnt { get => gatherAmount; set => gatherAmount = value; }
 	#endregion
 
 	#region Monobehaviour Callbacks
@@ -57,7 +63,6 @@ public class Agent : MonoBehaviour
 		InteractionState = new AgentInteractionState(this, behaviourSM);
 
 		navMeshAgent.speed = movementSpeed;
-		navMeshAgent.stoppingDistance = interactionRadius;
 
 		behaviourSM.Initialize(idleState);
 	}
