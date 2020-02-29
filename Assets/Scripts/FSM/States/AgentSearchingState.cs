@@ -58,6 +58,7 @@ public class AgentSearchingState : State
 				Debug.Log("Nearest object found!");
 			}
 		}
+		agent.InteractionRadius = nearestCollider.GetComponent<BoxCollider>().size.x * 1.25f;
 		agent.Target = nearestCollider.transform;
 	}
 }
