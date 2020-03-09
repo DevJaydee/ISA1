@@ -57,7 +57,12 @@ MonoBehaviour:
   interactionMask:
     serializedVersion: 2
     m_Bits: 512
+  interactionStorageMask:
+    serializedVersion: 2
+    m_Bits: 2147483648
+  collectedResourceName: 
   resourceInventory: 0
+  maxResourcesInInventory: 10
   gatherAmount: 1
 --- !u!195 &3990053657031580436
 NavMeshAgent:
