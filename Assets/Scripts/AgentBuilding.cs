@@ -32,7 +32,8 @@ public class AgentBuilding : MonoBehaviour
 	{
 		for(int i = 0; i < maxAgents; i++)
 		{
-			Instantiate(agentPrefab, transform.position, Quaternion.identity);
+			GameObject newAgent = Instantiate(agentPrefab, transform.position, Quaternion.identity);
+			activeAgents.Add(newAgent);
 		}
 	}
 	#endregion
