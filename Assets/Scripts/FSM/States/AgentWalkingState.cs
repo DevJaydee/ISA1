@@ -17,6 +17,7 @@ public class AgentWalkingState : State
 
 		Debug.Log("Starting to walk!");
 		agentDestinationSetInterval = agent.AgentDestinationSetInterval;
+		agent.NavMeshAgent.isStopped = false;
 	}
 
 	public override void Exit()
