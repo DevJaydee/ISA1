@@ -25,6 +25,9 @@ public class AgentBuilding : MonoBehaviour
 	#endregion
 
 	#region Spawning Agents
+	/// <summary>
+	/// Spawns however many agents are needed for this building unitl it reaches it's max.
+	/// </summary>
 	private void SpawnAgents()
 	{
 		for(int i = 0; i < maxAgents; i++)
