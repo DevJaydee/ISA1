@@ -63,7 +63,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   agentPrefab: {fileID: 3655039586912369313, guid: 58adc4bf65be7d241816c6ecd44cc7d2,
     type: 3}
-  maxAgents: 4
+  maxAgents: 1
   activeAgents: []
 --- !u!1001 &7657161145596457312
 PrefabInstance:
