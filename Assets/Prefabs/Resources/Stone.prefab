@@ -75,6 +75,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62985e59ec8accd43bc394d35273a430, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  resourceName: Stone
   resourceAmount: 100
 --- !u!1001 &4464742603003826419
 PrefabInstance:

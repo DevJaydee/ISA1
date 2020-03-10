@@ -8,10 +8,10 @@ public class Agent : MonoBehaviour
 {
 	#region Variables
 	private StateMachine behaviourSM = default;    // Reference to the SFM.
-	private AgentIdleState idleState = default;    // Reference to the Agent Idle State;
-	private AgentWalkingState walkingState = default;  // Reference to the Agent Walking State;
-	private AgentSearchingState searchingState = default;  // Reference to the Agent Searching State;
-	private AgentInteractionState interactionState = default;   // Reference to the Agent Interaction State;
+	private AgentIdleState idleState = default;    // Reference to the Agent Idle State.
+	private AgentWalkingState walkingState = default;  // Reference to the Agent Walking State.
+	private AgentSearchingState searchingState = default;  // Reference to the Agent Searching State.
+	private AgentInteractionState interactionState = default;   // Reference to the Agent Interaction State.
 
 	[SerializeField] private Animator anim = default;       // Reference to the animator component.
 	[SerializeField] private Transform target = default;    // The target transform.
@@ -26,7 +26,10 @@ public class Agent : MonoBehaviour
 	[SerializeField] private float interactionInterval = 1f;    // How often the agent interacts with an interactable.
 	[SerializeField] private LayerMask interactionMask = default;   // A layermask for all the objects the Agent can interact with.
 	[Space]
+	[SerializeField] private LayerMask interactionStorageMask = default;	// A layermask for all the storgage objects the agent can interact with.
+	[SerializeField] private string collectedResourceName = ""; // The name of the collected resource.
 	[SerializeField] private int resourceInventory = 0;   // The inventory of the agent that stores all the resources.
+	[SerializeField] private int maxResourcesInInventory = 10;  // The max amount of resources in the inventory.
 	[SerializeField] private int gatherAmount = 1;  // How much the Agent will remove from the resourceNode, and add to it's own inv./
 	#endregion
 
@@ -48,8 +51,11 @@ public class Agent : MonoBehaviour
 	public float InteractionInterval { get => interactionInterval; set => interactionInterval = value; }
 	public LayerMask InteractionMask { get => interactionMask; set => interactionMask = value; }
 
+	public LayerMask InteractionStorageMask { get => interactionStorageMask; set => interactionStorageMask = value; }
+	public string CollectedResourceName { get => collectedResourceName; set => collectedResourceName = value; }
 	public int ResourceInventory { get => resourceInventory; set => resourceInventory = value; }
-	public int GatherAmounnt { get => gatherAmount; set => gatherAmount = value; }
+	public int MaxResourcesInInventory { get => maxResourcesInInventory; set => maxResourcesInInventory = value; }
+	public int GatherAmount { get => gatherAmount; set => gatherAmount = value; }
 	#endregion
 
 	#region Monobehaviour Callbacks

@@ -32,7 +32,14 @@ public class AgentInteractionState : State
 
 		if(interactionInterval <= 0)
 		{
-			agent.Target.GetComponent<IInteractable>()?.Interact(agent, agent.GatherAmounnt);
+			if(agent.ResourceInventory > -1)
+				agent.Target.GetComponent<IInteractable>()?.Interact(agent, agent.GatherAmount);
+
+			if(agent.ResourceInventory >= agent.MaxResourcesInInventory)
+			{
+				agent.Target = null;
+				stateMachine.ChangeState(agent.SearchingState);
+			}
 
 			interactionInterval = agent.InteractionInterval;
 		}

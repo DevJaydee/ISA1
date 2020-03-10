@@ -75,6 +75,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62985e59ec8accd43bc394d35273a430, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  resourceName: Wood
   resourceAmount: 50
 --- !u!1001 &1340333118091262032
 PrefabInstance:
