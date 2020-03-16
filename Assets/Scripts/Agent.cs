@@ -4,6 +4,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+public enum AgentState
+{
+	Idle, Searching, Walking, Collecting, Storing
+}
+
 public class Agent : MonoBehaviour
 {
 	#region Variables
@@ -11,8 +16,11 @@ public class Agent : MonoBehaviour
 	private AgentIdleState idleState = default;    // Reference to the Agent Idle State.
 	private AgentWalkingState walkingState = default;  // Reference to the Agent Walking State.
 	private AgentSearchingState searchingState = default;  // Reference to the Agent Searching State.
-	private AgentInteractionState interactionState = default;   // Reference to the Agent Interaction State.
+	private AgentCollectingState collectingState = default;   // Reference to the Agent Interaction State.
+	private AgentStoringState storingState = default;           // Reference to the Agent Storing State;
 
+	[SerializeField] private AgentState agentState = AgentState.Idle;
+	[Space]
 	[SerializeField] private Animator anim = default;       // Reference to the animator component.
 	[SerializeField] private Transform target = default;    // The target transform.
 	[SerializeField] private NavMeshAgent navMeshAgent = default;   // Reference the NavMeshAgent component.
@@ -24,9 +32,9 @@ public class Agent : MonoBehaviour
 	[SerializeField] private float searchInterval = 0.1f;   // How often the agent will search per second for resources nearby.
 	[SerializeField] private float agentDestinationSetInterval = default; // How often the destination of the NavMeshAgent will be set.
 	[SerializeField] private float interactionInterval = 1f;    // How often the agent interacts with an interactable.
-	[SerializeField] private LayerMask interactionMask = default;   // A layermask for all the objects the Agent can interact with.
+	[SerializeField] private LayerMask collectingMask = default;   // A layermask for all the objects the Agent can interact with.
 	[Space]
-	[SerializeField] private LayerMask interactionStorageMask = default;	// A layermask for all the storgage objects the agent can interact with.
+	[SerializeField] private LayerMask interactionStorageMask = default;    // A layermask for all the storgage objects the agent can interact with.
 	[SerializeField] private string collectedResourceName = ""; // The name of the collected resource.
 	[SerializeField] private int resourceInventory = 0;   // The inventory of the agent that stores all the resources.
 	[SerializeField] private int maxResourcesInInventory = 10;  // The max amount of resources in the inventory.
@@ -34,10 +42,13 @@ public class Agent : MonoBehaviour
 	#endregion
 
 	#region Getters And Setters
+	public AgentState AgentState { get => agentState; set => agentState = value; }
+
 	public AgentIdleState IdleState { get => idleState; set => idleState = value; }
 	public AgentWalkingState WalkingState { get => walkingState; set => walkingState = value; }
 	public AgentSearchingState SearchingState { get => searchingState; set => searchingState = value; }
-	public AgentInteractionState InteractionState { get => interactionState; set => interactionState = value; }
+	public AgentCollectingState CollectingState { get => collectingState; set => collectingState = value; }
+	public AgentStoringState StoringState { get => storingState; set => storingState = value; }
 
 	public Animator Anim { get => anim; set => anim = value; }
 	public Transform Target { get => target; set => target = value; }
@@ -49,9 +60,9 @@ public class Agent : MonoBehaviour
 	public float SearchInterval { get => searchInterval; set => searchInterval = value; }
 	public float AgentDestinationSetInterval { get => agentDestinationSetInterval; set => agentDestinationSetInterval = value; }
 	public float InteractionInterval { get => interactionInterval; set => interactionInterval = value; }
-	public LayerMask InteractionMask { get => interactionMask; set => interactionMask = value; }
+	public LayerMask CollectingMask { get => collectingMask; set => collectingMask = value; }
 
-	public LayerMask InteractionStorageMask { get => interactionStorageMask; set => interactionStorageMask = value; }
+	public LayerMask StorageMask { get => interactionStorageMask; set => interactionStorageMask = value; }
 	public string CollectedResourceName { get => collectedResourceName; set => collectedResourceName = value; }
 	public int ResourceInventory { get => resourceInventory; set => resourceInventory = value; }
 	public int MaxResourcesInInventory { get => maxResourcesInInventory; set => maxResourcesInInventory = value; }
@@ -66,7 +77,8 @@ public class Agent : MonoBehaviour
 		idleState = new AgentIdleState(this, behaviourSM);
 		walkingState = new AgentWalkingState(this, behaviourSM);
 		searchingState = new AgentSearchingState(this, behaviourSM);
-		InteractionState = new AgentInteractionState(this, behaviourSM);
+		CollectingState = new AgentCollectingState(this, behaviourSM);
+		storingState = new AgentStoringState(this, behaviourSM);
 
 		navMeshAgent.speed = movementSpeed;
 
@@ -79,6 +91,11 @@ public class Agent : MonoBehaviour
 		behaviourSM.CurrentState.LogicUpdate();
 
 		anim.SetFloat("MovementVelocity", navMeshAgent.velocity.magnitude);
+
+		if(resourceInventory >= maxResourcesInInventory)
+			agentState = AgentState.Storing;
+		else if(resourceInventory <= 0)
+			AgentState = AgentState.Collecting;
 	}
 
 	private void FixedUpdate()
@@ -86,6 +103,25 @@ public class Agent : MonoBehaviour
 		behaviourSM.CurrentState.PhysicsUpdate();
 	}
 	#endregion
+
+	public void SearchForTarget(LayerMask mask)
+	{
+		Collider[] colliders = Physics.OverlapSphere(transform.position, SearchRadius, mask);
+		Collider nearestCollider = null;
+		float minSqrDistance = Mathf.Infinity;
+		for(int i = 0; i < colliders.Length; i++)
+		{
+			float sqrDistanceToCenter = (transform.position - colliders[i].transform.position).sqrMagnitude;
+			if(sqrDistanceToCenter < minSqrDistance)
+			{
+				minSqrDistance = sqrDistanceToCenter;
+				nearestCollider = colliders[i];
+				Debug.Log("Nearest object found!");
+			}
+		}
+		InteractionRadius = nearestCollider.GetComponent<BoxCollider>().size.x * 1.25f;
+		Target = nearestCollider.transform;
+	}
 
 	#region Debugging stuff
 	private void OnDrawGizmosSelected()
