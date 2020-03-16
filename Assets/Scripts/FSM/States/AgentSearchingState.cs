@@ -17,6 +17,7 @@ public class AgentSearchingState : State
 		base.Enter();
 
 		Debug.Log("Starting to Search!");
+		agent.AgentState = AgentState.Searching;
 		searchInterval = agent.SearchInterval;
 	}
 
@@ -38,32 +39,22 @@ public class AgentSearchingState : State
 			{
 				Debug.Log("I'm searching for nearest object!");
 
-				if(agent.ResourceInventory >= agent.MaxResourcesInInventory)
-					SearchForTarget(agent.InteractionStorageMask);
-				else
-					SearchForTarget(agent.InteractionMask);
+				switch(agent.AgentState)
+				{
+					case AgentState.Collecting:
+						agent.SearchForTarget(agent.CollectingMask);
+						break;
+
+					case AgentState.Storing:
+						agent.SearchForTarget(agent.StorageMask);
+						break;
+
+					default:
+						break;
+				}
 
 				searchInterval = agent.SearchInterval;
 			}
 		}
-	}
-
-	private void SearchForTarget(LayerMask mask)
-	{
-		Collider[] colliders = Physics.OverlapSphere(agent.transform.position, agent.SearchRadius, mask);
-		Collider nearestCollider = null;
-		float minSqrDistance = Mathf.Infinity;
-		for(int i = 0; i < colliders.Length; i++)
-		{
-			float sqrDistanceToCenter = (agent.transform.position - colliders[i].transform.position).sqrMagnitude;
-			if(sqrDistanceToCenter < minSqrDistance)
-			{
-				minSqrDistance = sqrDistanceToCenter;
-				nearestCollider = colliders[i];
-				Debug.Log("Nearest object found!");
-			}
-		}
-		agent.InteractionRadius = nearestCollider.GetComponent<BoxCollider>().size.x * 1.25f;
-		agent.Target = nearestCollider.transform;
 	}
 }
