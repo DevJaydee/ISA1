@@ -3,11 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AgentInteractionState : State
+public class AgentCollectingState : State
 {
 	private float interactionInterval;
 
-	public AgentInteractionState(Agent agent, StateMachine stateMachine) : base(agent, stateMachine)
+	public AgentCollectingState(Agent agent, StateMachine stateMachine) : base(agent, stateMachine)
 	{
 	}
 
@@ -27,20 +27,18 @@ public class AgentInteractionState : State
 	public override void LogicUpdate()
 	{
 		base.LogicUpdate();
+		if(!agent.Target || agent.ResourceInventory >= agent.MaxResourcesInInventory)
+		{
+			agent.Target = null;
+			agent.AgentState = AgentState.Storing;
+			stateMachine.ChangeState(agent.SearchingState);
+		}
 
 		interactionInterval -= Time.deltaTime;
 
 		if(interactionInterval <= 0)
 		{
-			if(agent.ResourceInventory > -1)
-				agent.Target.GetComponent<IInteractable>()?.Interact(agent, agent.GatherAmount);
-
-			if(agent.ResourceInventory >= agent.MaxResourcesInInventory)
-			{
-				agent.Target = null;
-				stateMachine.ChangeState(agent.SearchingState);
-			}
-
+			agent.Target.GetComponent<IInteractable>()?.Interact(agent, agent.GatherAmount);
 			interactionInterval = agent.InteractionInterval;
 		}
 	}
