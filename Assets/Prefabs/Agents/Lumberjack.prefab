@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7183207db36cf8441ac90975c556bae4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  agentState: 0
   anim: {fileID: 6054083278998375761}
   target: {fileID: 0}
   navMeshAgent: {fileID: 3990053657031580436}
@@ -54,7 +55,7 @@ MonoBehaviour:
   searchInterval: 0.1
   agentDestinationSetInterval: 0.1
   interactionInterval: 1
-  interactionMask:
+  collectingMask:
     serializedVersion: 2
     m_Bits: 512
   interactionStorageMask:
