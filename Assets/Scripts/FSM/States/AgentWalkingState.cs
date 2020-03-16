@@ -16,6 +16,7 @@ public class AgentWalkingState : State
 		base.Enter();
 
 		Debug.Log("Starting to walk!");
+		agent.AgentState = AgentState.Walking;
 		agentDestinationSetInterval = agent.AgentDestinationSetInterval;
 		agent.NavMeshAgent.isStopped = false;
 	}
@@ -29,6 +30,9 @@ public class AgentWalkingState : State
 	{
 		base.LogicUpdate();
 
+		if(!agent.Target)
+			stateMachine.ChangeState(agent.SearchingState);
+
 		agentDestinationSetInterval -= Time.deltaTime;
 
 		if(agentDestinationSetInterval <= 0)
@@ -40,7 +44,20 @@ public class AgentWalkingState : State
 		if(Vector3.Distance(agent.transform.position, agent.Target.position) <= agent.InteractionRadius)
 		{
 			agent.NavMeshAgent.isStopped = true;
-			stateMachine.ChangeState(agent.InteractionState);
+
+			switch(agent.AgentState)
+			{
+				case AgentState.Collecting:
+					stateMachine.ChangeState(agent.CollectingState);
+					break;
+
+				case AgentState.Storing:
+					stateMachine.ChangeState(agent.StoringState);
+					break;
+
+				default:
+					break;
+			}
 		}
 	}
 }
