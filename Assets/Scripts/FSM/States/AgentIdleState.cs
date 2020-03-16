@@ -15,6 +15,7 @@ public class AgentIdleState : State
 		base.Enter();
 
 		Debug.Log("I'm just idle!");
+		agent.AgentState = AgentState.Idle;
 		stateMachine.ChangeState(agent.SearchingState);
 	}
 
