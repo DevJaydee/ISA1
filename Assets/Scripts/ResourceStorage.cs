@@ -24,7 +24,7 @@ public class ResourceStorage : MonoBehaviour, IInteractable
 		{
 			itemsStored.Add(agent.CollectedResourceName, amount);
 		}
-		Debug.Log(agent.name + " Stored: " + itemsStored[agent.CollectedResourceName] + " In me.");
+		//Debug.Log(agent.name + " Stored: " + itemsStored[agent.CollectedResourceName] + " In me.");
 		agent.ResourceInventory -= amount;
 	}
 }
