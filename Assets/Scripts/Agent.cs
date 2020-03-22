@@ -38,7 +38,12 @@ public class Agent : MonoBehaviour
 	[SerializeField] private string collectedResourceName = ""; // The name of the collected resource.
 	[SerializeField] private int resourceInventory = 0;   // The inventory of the agent that stores all the resources.
 	[SerializeField] private int maxResourcesInInventory = 10;  // The max amount of resources in the inventory.
-	[SerializeField] private int gatherAmount = 1;  // How much the Agent will remove from the resourceNode, and add to it's own inv./
+	[SerializeField] private int gatherAmount = 1;  // How much the Agent will remove from the resourceNode, and add to it's own inv.
+	[Space]
+	[SerializeField] private Material[] skinMaterials = default;    // all the skin materials this Agent could pick from.
+#pragma warning disable CS0108 // Member hides inherited member; missing new keyword
+	[SerializeField] private SkinnedMeshRenderer renderer = default;   // Reference to the Mesh Renderer component.
+#pragma warning restore CS0108 // Member hides inherited member; missing new keyword
 	#endregion
 
 	#region Getters And Setters
@@ -72,6 +77,8 @@ public class Agent : MonoBehaviour
 	#region Monobehaviour Callbacks
 	private void Start()
 	{
+		ChooseRandomSkinMaterial();
+
 		behaviourSM = new StateMachine();
 
 		idleState = new AgentIdleState(this, behaviourSM);
@@ -121,6 +128,12 @@ public class Agent : MonoBehaviour
 		}
 		InteractionRadius = nearestCollider.GetComponent<BoxCollider>().size.x * 1.25f;
 		Target = nearestCollider.transform;
+	}
+
+	private void ChooseRandomSkinMaterial()
+	{
+		int rand = Random.Range(0, skinMaterials.Length);
+		renderer.material = skinMaterials[rand];
 	}
 
 	#region Debugging stuff
