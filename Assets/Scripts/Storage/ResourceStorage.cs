@@ -10,8 +10,13 @@ public class ResourceStorage : MonoBehaviour, IInteractable
 	#endregion
 
 	#region Getters & Setters
-
+	public List<ResourceItem> ItemsStored { get => itemsStored; set => itemsStored = value; }
 	#endregion
+
+	private void Start()
+	{
+		ResourceStorageManager.Instance.ResourceStoragesInScene.Add(this);
+	}
 
 	private void OnApplicationQuit()
 	{
