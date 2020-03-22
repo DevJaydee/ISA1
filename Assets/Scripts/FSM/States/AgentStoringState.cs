@@ -34,6 +34,12 @@ public class AgentStoringState : State
 			stateMachine.ChangeState(agent.SearchingState);
 		}
 
+		if(!agent.Target.GetComponent<ResourceStorage>().HasSpace())
+		{
+			agent.Target = null;
+			stateMachine.ChangeState(agent.SearchingState);
+		}
+
 		interactionInterval -= Time.deltaTime;
 
 		if(interactionInterval <= 0)
