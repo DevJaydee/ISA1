@@ -7,6 +7,7 @@ public class AgentBuilding : MonoBehaviour
 	#region Variables
 	[SerializeField] private GameObject agentPrefab = default;  // Which agent to spawn form this building.
 	[SerializeField] private int maxAgents = 1;                 // How many agents belong to this building.
+	[SerializeField] private Transform agentSpawnPoint = default;	// Point where the agents will spawn.
 	[Space]
 	[SerializeField] private List<GameObject> activeAgents = new List<GameObject>();    // How many agents are active.
 	#endregion
@@ -32,7 +33,7 @@ public class AgentBuilding : MonoBehaviour
 	{
 		for(int i = 0; i < maxAgents; i++)
 		{
-			GameObject newAgent = Instantiate(agentPrefab, transform.position, Quaternion.identity);
+			GameObject newAgent = Instantiate(agentPrefab, agentSpawnPoint.position, agentSpawnPoint.rotation);
 			activeAgents.Add(newAgent);
 		}
 	}
