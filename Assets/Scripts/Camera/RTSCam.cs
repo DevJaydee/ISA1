@@ -63,7 +63,7 @@ public class RTSCam : MonoBehaviour
 
 		// Up and Down
 		float scroll = Input.GetAxis("Mouse ScrollWheel");
-		pos.y -= scroll * scrollSpeed * Time.deltaTime;
+		pos.y -= scroll * scrollSpeed;
 
 		pos.x = Mathf.Clamp(pos.x, -panLimit.x, panLimit.x);    // Left, Right
 		pos.y = Mathf.Clamp(pos.y, zoomLimit.x, zoomLimit.y);  // Up, Down
