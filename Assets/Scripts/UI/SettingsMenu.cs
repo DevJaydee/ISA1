@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.UI;
 
 public class SettingsMenu : MonoBehaviour
@@ -11,6 +12,7 @@ public class SettingsMenu : MonoBehaviour
 	[Space]
 	[SerializeField] private Slider audioVolumeSlider = default;      // Reference to the Audio Volume Slider.
 	[SerializeField] private TextMeshProUGUI audioVolumeSliderValueTextMesh = default;    // Reference to the Audio Volume Slider Value Text Mesh.
+	[SerializeField] private AudioMixer mixer = default;        // Reference to the Audio Mixer.
 
 	private void Start()
 	{
@@ -28,5 +30,6 @@ public class SettingsMenu : MonoBehaviour
 	{
 		PlayerPrefs.SetFloat("AudioVolume", audioVolumeSlider.value);
 		audioVolumeSliderValueTextMesh.text = "Volume: " + audioVolumeSlider.value.ToString("F0");
+		mixer.SetFloat("Volume", (audioVolumeSlider.value - 50) / 4);
 	}
 }
