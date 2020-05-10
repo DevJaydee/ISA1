@@ -17,6 +17,7 @@ public class AgentStoringState : State
 
 		Debug.Log("Starting to Interact!");
 		interactionInterval = agent.InteractionInterval;
+		agent.AgentState = AgentState.Storing;
 	}
 
 	public override void Exit()
