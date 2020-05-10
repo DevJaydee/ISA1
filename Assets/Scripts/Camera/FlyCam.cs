@@ -21,14 +21,14 @@ public class FlyCam : MonoBehaviour
                         End:    Toggle cursor locking to screen (you can also press Ctrl+P to toggle play mode on and off).
 	*/
 
-	public float cameraSensitivity = 90;
-	public float climbSpeed = 4;
-	public float normalMoveSpeed = 10;
-	public float slowMoveFactor = 0.25f;
-	public float fastMoveFactor = 3;
-
-	private float rotationX = 0.0f;
-	private float rotationY = 0.0f;
+	[SerializeField] private float cameraSensitivity = 90;
+	[SerializeField] private float climbSpeed = 4;
+	[SerializeField] private float normalMoveSpeed = 10;
+	[SerializeField] private float slowMoveFactor = 0.25f;
+	[SerializeField] private float fastMoveFactor = 3;
+	[Space]
+	[SerializeField] private float rotationX = 0.0f;
+	[SerializeField] private float rotationY = 0.0f;
 
 	void Start()
 	{
