@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7453261926117578102}
   - component: {fileID: 896908061731715239}
   - component: {fileID: 896908061731715238}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: crop_carrot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -27,7 +27,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9174844228440465834}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -19, y: 0.49, z: -42}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
