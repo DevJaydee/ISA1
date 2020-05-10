@@ -5,26 +5,24 @@ using UnityEngine;
 public class ResourceStorageManager : MonoBehaviour
 {
 	#region Variables
-	private static ResourceStorageManager instance = null;
+	private static ResourceStorageManager instance = null;	// An instance of the Resource Storage Manager
 
 	[Header("Total Stored Items:")]
-	[SerializeField] private ResourceItem wood = default;
-	[SerializeField] private ResourceItem stone = default;
-	[SerializeField] private ResourceItem iron = default;
-	[SerializeField] private ResourceItem food = default;
+	[SerializeField] private ResourceItem wood = default;		// Reference to the Wood Resource Item.
+	[SerializeField] private ResourceItem stone = default;      // Reference to the Stone Resource Item.
+	[SerializeField] private ResourceItem food = default;       // Reference to the Food Resource Item.
 
 	[Header("Storage Objects In Scene:")]
-	[SerializeField] private List<ResourceStorage> resourceStoragesInScene = new List<ResourceStorage>();
+	[SerializeField] private List<ResourceStorage> resourceStoragesInScene = new List<ResourceStorage>();	// List with all the Storages in the scene.
 	#endregion
 
-	#region Getters And Setters
+	#region Properties
 	public static ResourceStorageManager Instance { get => instance; }
 
 	public List<ResourceStorage> ResourceStoragesInScene { get => resourceStoragesInScene; set => resourceStoragesInScene = value; }
 
 	public ResourceItem Wood { get => wood; set => wood = value; }
 	public ResourceItem Stone { get => stone; set => stone = value; }
-	public ResourceItem Iron { get => iron; set => iron = value; }
 	public ResourceItem Food { get => food; set => food = value; }
 	#endregion
 

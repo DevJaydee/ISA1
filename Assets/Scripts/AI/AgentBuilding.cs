@@ -12,7 +12,7 @@ public class AgentBuilding : MonoBehaviour
 	[SerializeField] private List<GameObject> activeAgents = new List<GameObject>();    // How many agents are active.
 	#endregion
 
-	#region Getters And Setters
+	#region Properties
 	public GameObject AgentPrefab { get => agentPrefab; set => agentPrefab = value; }
 	public int MaxAgents { get => maxAgents; set => maxAgents = value; }
 	public List<GameObject> ActiveAgents { get => activeAgents; set => activeAgents = value; }

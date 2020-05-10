@@ -24,7 +24,9 @@ public class AgentStoringState : State
 	{
 		base.Exit();
 	}
-
+	/// <summary>
+	/// Handles all the logic updates.
+	/// </summary>
 	public override void LogicUpdate()
 	{
 		base.LogicUpdate();

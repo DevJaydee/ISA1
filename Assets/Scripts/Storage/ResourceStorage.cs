@@ -9,7 +9,7 @@ public class ResourceStorage : MonoBehaviour, IInteractable
 	[SerializeField] private List<ResourceItem> itemsStored = new List<ResourceItem>();   // List with all the stored items but serialized.
 	#endregion
 
-	#region Getters & Setters
+	#region Properties
 	public List<ResourceItem> ItemsStored { get => itemsStored; set => itemsStored = value; }
 	#endregion
 
@@ -23,6 +23,11 @@ public class ResourceStorage : MonoBehaviour, IInteractable
 		CleanupStorage();
 	}
 
+	/// <summary>
+	/// Handles the Interaction between an Agent and the storage.
+	/// </summary>
+	/// <param name="agent"></param>
+	/// <param name="amount"></param>
 	public void Interact(Agent agent, int amount)
 	{
 		for(int i = 0; i < itemsStored.Count; i++)
@@ -38,6 +43,10 @@ public class ResourceStorage : MonoBehaviour, IInteractable
 		}
 	}
 
+	/// <summary>
+	/// Checks if the storage has space.
+	/// </summary>
+	/// <returns></returns>
 	public bool HasSpace()
 	{
 		int totalItemsStored = 0;
@@ -48,6 +57,9 @@ public class ResourceStorage : MonoBehaviour, IInteractable
 		return totalItemsStored <= maxItemsToBeStored ? true : false;
 	}
 
+	/// <summary>
+	/// For debugging purposes only!
+	/// </summary>
 	private void CleanupStorage()
 	{
 		foreach(ResourceItem item in itemsStored)

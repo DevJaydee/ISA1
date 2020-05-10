@@ -20,12 +20,18 @@ public class SettingsMenu : MonoBehaviour
 		audioVolumeSlider.value = PlayerPrefs.GetFloat("AudioVolume");
 	}
 
+	/// <summary>
+	/// Updates the Camera Sensitivity through the usages of PlayerPrefs.
+	/// </summary>
 	public void UpdateCamSensitivity()
 	{
 		PlayerPrefs.SetFloat("CameraSensitivity", cameraSensitivitySlider.value);
 		cameraSensitivitySliderValueTextMesh.text = "Sensitivity: " + cameraSensitivitySlider.value.ToString("F2");
 	}
 
+	/// <summary>
+	/// Updates the Audio Volume through the usages of PlayerPrefs.
+	/// </summary>
 	public void UpdateAudioVolume()
 	{
 		PlayerPrefs.SetFloat("AudioVolume", audioVolumeSlider.value);

@@ -4,11 +4,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+/// <summary>
+/// The state of the Agent
+/// </summary>
 public enum AgentState
 {
 	Idle, Searching, Walking, Collecting, Storing
 }
 
+/// <summary>
+/// The agent class handles the Agent Behaviour
+/// </summary>
 public class Agent : MonoBehaviour
 {
 	#region Variables
@@ -46,7 +52,7 @@ public class Agent : MonoBehaviour
 #pragma warning restore CS0108 // Member hides inherited member; missing new keyword
 	#endregion
 
-	#region Getters And Setters
+	#region Properties
 	public AgentState AgentState { get => agentState; set => agentState = value; }
 
 	public AgentIdleState IdleState { get => idleState; set => idleState = value; }
@@ -111,11 +117,15 @@ public class Agent : MonoBehaviour
 	}
 	#endregion
 
+	/// <summary>
+	/// Searches for a random target. (previously the nearest target, but this looks nicer ingame :) )
+	/// </summary>
+	/// <param name="mask"></param>
 	public void SearchForTarget(LayerMask mask)
 	{
 		Collider[] colliders = Physics.OverlapSphere(transform.position, SearchRadius, mask);
-		Collider nearestCollider = null;
-		float minSqrDistance = Mathf.Infinity;
+		//Collider nearestCollider = null;
+		//float minSqrDistance = Mathf.Infinity;
 
 		// Pick a random target from the list.
 		int randTargetIndex = Random.Range(0, colliders.Length);
@@ -137,6 +147,9 @@ public class Agent : MonoBehaviour
 		//InteractionRadius = target.GetComponent<BoxCollider>().size.x * 1.25f;
 	}
 
+	/// <summary>
+	/// Chooses a random skin for the Agent.
+	/// </summary>
 	private void ChooseRandomSkinMaterial()
 	{
 		int rand = Random.Range(0, skinMaterials.Length);

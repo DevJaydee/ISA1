@@ -12,17 +12,9 @@ public class UIController : MonoBehaviour
 	[Header("Resource UI")]
 	[SerializeField] private TextMeshProUGUI storedWoodTextMesh = default;  // Reference to the Stored Wood Text Mesh Component.
 	[SerializeField] private TextMeshProUGUI storedStoneTextMesh = default; // Reference to the Stored Stone Text Mesh Component.
-	[SerializeField] private TextMeshProUGUI storedIronTextMesh = default;  // Reference to the Stored Iron Text Mesh Component.
 	[SerializeField] private TextMeshProUGUI storedFoodTextMesh = default;  // Reference to the Stored Food Text Mesh Component.
 
 	private ResourceStorageManager storageManager;
-	#endregion
-
-	#region Getters and Setters
-	#endregion
-
-	#region MonoBehaviour Callbacks
-
 	#endregion
 
 	#region Private Voids
@@ -34,21 +26,20 @@ public class UIController : MonoBehaviour
 	#endregion
 
 	#region Private IEnumerators
+	/// <summary>
+	/// Updates the UI at a set interval.
+	/// </summary>
+	/// <returns></returns>
 	private IEnumerator UpdateUI()
 	{
 		while(true)
 		{
 			storedWoodTextMesh.text = storageManager.Wood.name + ": " + storageManager.Wood.AmountStored.ToString();
 			storedStoneTextMesh.text = storageManager.Stone.name + ": " + storageManager.Stone.AmountStored.ToString();
-			storedIronTextMesh.text = storageManager.Iron.name + ": " + storageManager.Iron.AmountStored.ToString();
 			storedFoodTextMesh.text = storageManager.Food.name + ": " + storageManager.Food.AmountStored.ToString();
 
 			yield return new WaitForSeconds(updateInterval);
 		}
 	}
-	#endregion
-
-	#region Public Voids
-
 	#endregion
 }
