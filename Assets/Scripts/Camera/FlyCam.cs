@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class FlyCam : MonoBehaviour
 {
@@ -34,6 +35,7 @@ public class FlyCam : MonoBehaviour
 	{
 		Cursor.lockState = CursorLockMode.Locked;
 		Cursor.visible = false;
+		cameraSensitivity = PlayerPrefs.GetFloat("CameraSensitivity");
 	}
 
 	void Update()
@@ -68,6 +70,13 @@ public class FlyCam : MonoBehaviour
 		{
 			Cursor.lockState = (Cursor.lockState == CursorLockMode.None) ? CursorLockMode.Locked : CursorLockMode.None;
 			Cursor.visible = (Cursor.lockState == CursorLockMode.None) ? true : false;
+		}
+
+		if(Input.GetKeyDown(KeyCode.Escape))
+		{
+			Cursor.lockState = CursorLockMode.None;
+			Cursor.visible = true;
+			SceneManager.LoadScene(0);
 		}
 	}
 }
