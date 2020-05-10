@@ -27,7 +27,12 @@ public class AgentCollectingState : State
 	public override void LogicUpdate()
 	{
 		base.LogicUpdate();
-		if(!agent.Target || agent.ResourceInventory >= agent.MaxResourcesInInventory)
+		if(!agent.Target)
+		{
+			agent.AgentState = AgentState.Collecting;
+			stateMachine.ChangeState(agent.SearchingState);
+		}
+		if(agent.ResourceInventory >= agent.MaxResourcesInInventory)
 		{
 			agent.Target = null;
 			agent.AgentState = AgentState.Storing;
