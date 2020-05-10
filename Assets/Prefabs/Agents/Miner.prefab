@@ -51,7 +51,7 @@ MonoBehaviour:
   navMeshAgent: {fileID: 3990053657031580436}
   movementSpeed: 5
   searchRadius: 150
-  interactionRadius: 2
+  interactionRadius: 5
   searchInterval: 0.1
   agentDestinationSetInterval: 0.1
   interactionInterval: 1
@@ -90,7 +90,7 @@ NavMeshAgent:
   m_Height: 4
   m_BaseOffset: -0.05
   m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
+  m_ObstacleAvoidanceType: 0
 --- !u!1001 &6054083279005710385
 PrefabInstance:
   m_ObjectHideFlags: 0
