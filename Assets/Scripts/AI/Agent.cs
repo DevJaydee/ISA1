@@ -101,7 +101,7 @@ public class Agent : MonoBehaviour
 
 		if(resourceInventory >= maxResourcesInInventory)
 			agentState = AgentState.Storing;
-		else if(resourceInventory <= 0)
+		else if(resourceInventory <= maxResourcesInInventory)
 			AgentState = AgentState.Collecting;
 	}
 
@@ -116,18 +116,25 @@ public class Agent : MonoBehaviour
 		Collider[] colliders = Physics.OverlapSphere(transform.position, SearchRadius, mask);
 		Collider nearestCollider = null;
 		float minSqrDistance = Mathf.Infinity;
-		for(int i = 0; i < colliders.Length; i++)
-		{
-			float sqrDistanceToCenter = (transform.position - colliders[i].transform.position).sqrMagnitude;
-			if(sqrDistanceToCenter < minSqrDistance)
-			{
-				minSqrDistance = sqrDistanceToCenter;
-				nearestCollider = colliders[i];
-				Debug.Log("Nearest object found!");
-			}
-		}
-		InteractionRadius = nearestCollider.GetComponent<BoxCollider>().size.x * 1.25f;
-		Target = nearestCollider.transform;
+
+		// Pick a random target from the list.
+		int randTargetIndex = Random.Range(0, colliders.Length);
+		target = colliders[randTargetIndex].transform;
+
+		// Pick nearest object
+		//for(int i = 0; i < colliders.Length; i++)
+		//{
+		//	float sqrDistanceToCenter = (transform.position - colliders[i].transform.position).sqrMagnitude;
+		//	if(sqrDistanceToCenter < minSqrDistance)
+		//	{
+		//		minSqrDistance = sqrDistanceToCenter;
+		//		nearestCollider = colliders[i];
+		//		Debug.Log("Nearest object found!");
+		//	}
+		//}
+		//Target = nearestCollider.transform;
+
+		InteractionRadius = target.GetComponent<BoxCollider>().size.x * 1.25f;
 	}
 
 	private void ChooseRandomSkinMaterial()
