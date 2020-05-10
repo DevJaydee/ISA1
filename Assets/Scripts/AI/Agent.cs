@@ -134,7 +134,7 @@ public class Agent : MonoBehaviour
 		//}
 		//Target = nearestCollider.transform;
 
-		InteractionRadius = target.GetComponent<BoxCollider>().size.x * 1.25f;
+		//InteractionRadius = target.GetComponent<BoxCollider>().size.x * 1.25f;
 	}
 
 	private void ChooseRandomSkinMaterial()
