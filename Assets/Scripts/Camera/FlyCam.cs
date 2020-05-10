@@ -72,11 +72,13 @@ public class FlyCam : MonoBehaviour
 			Cursor.visible = (Cursor.lockState == CursorLockMode.None) ? true : false;
 		}
 
+#if !UNITY_EDITOR
 		if(Input.GetKeyDown(KeyCode.Escape))
 		{
 			Cursor.lockState = CursorLockMode.None;
 			Cursor.visible = true;
 			SceneManager.LoadScene(0);
 		}
+#endif
 	}
 }
